@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-{{company[1]["name"]}}
+
 <h2>
     {{page_title}}
 </h2>
@@ -16,37 +16,39 @@
     action. The superstitious Dwarves also considered thirteen to be an unlucky number, and as Gandalf had planned to
     leave on other business, welcomed a fourteenth to fill into their party.
 </p>
-<div class="row featurette">
-    <div class="col-md-7">
-        <h3>Thorin Oakensheild</h3>
-        <p>Thorin II was born in TA 2746 to Dwarven prince Thráin II in the city of The Lonely Mountain. Early in his
-            youth, he and the other Dwarves of the Lonely Mountain were forced to flee by the dragon Smaug in TA 2770.
-            While in exile, he quickly grew to become a capable warrior. This was demonstrated when he participated in
-            the Battle of Azanulbizar in TA 2799. He fought with one of the Dwarven armies beneath the East-gate of
-            Moria. At some point in the fighting, his shield broke, and using an oaken tree branch found on the floor as
-            a shield, he gained the epithet "Oakenshield," which would remain with him even in death.</p>
-    </div>
-    <div class="col-md-5">
-        <img src='static/img/ThorinBIG.jpg' alt="Thorin" height="240" width="400">
-    </div>
+
+    {% for member in company %}
+
     <div class="row featurette">
-        <div class="col-md-5">
-            <img src="static/img/FiliKili.jpg" alt="FiliKili" height="340" width="320">
-        </div>
+
+            {%if loop.index % 2 !=0%}
+
+            <div class="col-md-7">
+                <h3>{{loop.index}}. {{member.name}}</h3>
+                <p>{{member.description}}</p>
+            </div>
+            <div class="col-md-5">
+                <img src="{{member.image_source}}"" alt="Thorin" height="240" width="400">
+            </div>
+
+            {% else %}
+
+            <div class="col-md-5">
+                <img src="{{member.image_source}}"" alt="Thorin" height="240" width="400">
+            </div>
+            <div class="col-md-7">
+                <h3>{{loop.index}}. {{member.name}}</h3>
+                <p>{{member.description}}</p>
+            </div>
+
+            {% endif %}
+
     </div>
 
-    <div class="col-md-7">
-        <h3>Fíli and Kíli</h3>
-        <p>Fíli and Kíli were nephews of Thorin, who was the elder brother of their mother Dís. They were also
-            nephews
-            of Frerin, grandsons of Thráin II, and great-grandsons of Thrór. Fíli's most distinguishing feature
-            was
-            his
-            long nose, the longest of any of the Dwarves in Thorin's company.
-        </p>
-    </div>
+        {% if loop.length != 13 %}
+            <hr class="featurette divider">
+        {% endif %}
 
-
-</div>
+    {% endfor %}
 
 {% endblock %}
